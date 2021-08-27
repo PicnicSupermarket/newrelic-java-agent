@@ -1,0 +1,2 @@
+install:
+  - ./gradlew assemble publishToMavenLocal -Pjdk8="${JAVA_HOME}"
