@@ -1,0 +1,8 @@
+before_install:
+  - source "${HOME}/.sdkman/bin/sdkman-init.sh"
+  - sdk update
+  - sdk install java 8.0.302-open
+  - sdk install java 11.0.12-open
+  - sdk use java 8.0.302-open
+install:
+  - ./gradlew assemble publishToMavenLocal -Pjdk8="${JAVA_HOME}" -Pjdk11="$(sdk use java 11.0.12-open > /dev/null && echo "${JAVA_HOME}")"
