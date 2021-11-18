@@ -13,6 +13,7 @@ import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.agent.bridge.ExtensionHolder;
 import com.newrelic.agent.bridge.ExtensionHolderFactory;
 
+import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 
@@ -35,7 +36,7 @@ public class ExtensionHolderFactoryImpl implements ExtensionHolderFactory {
         private final Cache<Object, T> instanceCache = Caffeine.newBuilder()
                 .initialCapacity(32)
                 .weakKeys()
-                .executor(Runnable::run)
+                .executor(Executors.newCachedThreadPool())
                 .build();
         // @formatter:on
 

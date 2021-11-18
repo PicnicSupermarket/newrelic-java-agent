@@ -7,6 +7,7 @@
 
 package com.newrelic.agent.util;
 
+import java.util.concurrent.Executors;
 import java.util.Map;
 
 import com.github.benmanes.caffeine.cache.Cache;
@@ -17,7 +18,11 @@ public class AgentCollectionFactory implements CollectionFactory {
 
     @Override
     public <K, V> Map<K, V> createConcurrentWeakKeyedMap() {
-        Cache<K, V> cache = Caffeine.newBuilder().initialCapacity(32).weakKeys().build();
+        Cache<K, V> cache = Caffeine.newBuilder()
+                .initialCapacity(32)
+                .weakKeys()
+                .executor(Executors.newCachedThreadPool())
+                .build();
         return cache.asMap();
     }
 }
