@@ -25,11 +25,6 @@ allprojects {
     tasks.withType(Copy) {
         includeEmptyDirs = false
     }
-
-    repositories {
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
 }
 
 // This fixes an issue with intellij where the test output build path is incorrect for the top-level java_agent module
