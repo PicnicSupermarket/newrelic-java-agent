@@ -17,14 +17,8 @@ import reactor.util.context.Context;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-/**
- * Implementation of a reactor.core.CoreSubscriber (a Context aware subscriber) that can be added as
- * a lifecycle hook on Flux/Mono operators to propagate, retrieve, and link Tokens across async contexts.
- *
- * Based on OpenTelemetry code:
- * https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/reactor-3.1/library/src/main/java/io/opentelemetry/instrumentation/reactor/TracingSubscriber.java
- * @param <T>
- */
+// Based on OpenTelemetry code
+// https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/reactor-3.1/library/src/main/java/io/opentelemetry/instrumentation/reactor/TracingSubscriber.java
 public class TokenLinkingSubscriber<T> implements CoreSubscriber<T> {
     private final Token token;
     private final Subscriber<? super T> subscriber;
@@ -33,7 +27,7 @@ public class TokenLinkingSubscriber<T> implements CoreSubscriber<T> {
     public TokenLinkingSubscriber(Subscriber<? super T> subscriber, Context ctx) {
         this.subscriber = subscriber;
         this.context = ctx;
-        // newrelic-token is added by spring-webflux instrumentation of ServerWebExchange
+        // newrelic-token is added by spring-webflux instrumentation
         this.token = ctx.getOrDefault("newrelic-token", null);
     }
 
